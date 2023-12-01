@@ -9,10 +9,10 @@ async function insertOne() {
         console.log('Connected to database...')
         let database = client.db('vectacorp')
         let employee = {
-            name: 'Suzi Suzuki',
-            extension: 1115,
-            email: 'suzi@vectacorp.com',
-            title: 'CEO',
+            name: 'Delete User',
+            extension: 1116,
+            email: 'delete@vectacorp.com',
+            title: 'pawn',
             dateHired: Date.now(),
             currentlyEmployed: true
         }
