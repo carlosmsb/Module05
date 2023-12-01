@@ -1,30 +1,26 @@
 import { MongoClient } from 'mongodb'
 import {} from 'dotenv/config'
-const uri = process.env.DB
-const client = new MongoClient(uri)
+
 //  CONNECT TO DATABASE
-async function insertOne() {
-    try {
-        await client.connect(uri)
-        console.log('Connected to database...')
-        let database = client.db('vectacorp')
+MongoClient.connect(process.env.DB, (err, database) => {
+    if (err) throw err
+    console.log('Connected to database...')
+
         let employee = {
-            name: 'Delete User',
-            extension: 1116,
-            email: 'delete@vectacorp.com',
-            title: 'pawn',
+            name: 'Cody Pendant',
+            extension: 1117,
+            email: 'cody@vectacorp.com',
+            title: 'Tech',
             dateHired: Date.now(),
             currentlyEmployed: true
         }
-        const result = await database
+
+        database
+            .db('vectacorp')
             .collection('employees')
-            .insertOne(employee)
-            console.log(result)
-            console.log('1 document inserted into collection.')
-    } catch (err) {
-        console.log(err)
-    } finally {
-        await client.close()
-    }
-}
-insertOne()
+            .insertOne(employee, (err, res) => {
+                if (err) throw err
+                console.log('1 document inserted.')
+                database.clone()
+            })
+})
